@@ -1,0 +1,42 @@
+{
+  "name": "src",
+  "version": "1.0.0",
+  "git": "https://github.com/Sagacity12/github-directions.git"
+  "description": "A TypeScript project with Devbox and GitHub Actions",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsc --watch & nodemon dist/index.js",
+    "build": "tsc",
+    "start": "tsx src/index.ts",
+    "test": "vitest run",
+    "test-watch": "vitest",
+    "lint": "pnpm exec eslint \"src/**/*.ts\"",
+    "lint-fix": "pnpm exec eslint --fix \"src/**/*.ts\"",
+    "type-check": "tsc --noEmit",
+    "format": "pnpm exec prettier --write \"src/**/*.ts\"",
+    "pre-commit": "npm run lint-fix && npm run type-check && npm run test",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "devbox",
+    "typescript",
+    "github-actions",
+    "nodejs"
+  ],
+  "author": "Edward Moses Appiah",
+  "license": "MIT",
+  "packageManager": "pnpm@10.26.1",
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@types/node": "^25.0.6",
+    "@typescript-eslint/eslint-plugin": "^8.52.0",
+    "@typescript-eslint/parser": "^8.52.0",
+    "eslint": "^9.39.2",
+    "prettier": "^3.7.4",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.16"
+  }
+}

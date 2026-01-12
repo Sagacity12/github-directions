@@ -1,0 +1,19 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.16.0/.schema/devbox.schema.json",
+  "packages": ["nodejs@20.11.1", "pnpm@latest"],
+  "shell": {
+    "init_hook": [
+      "echo 'Welcome to your Node.js + Typescript dev environment!'",
+      "echo 'Node version:' && node --version",
+      "echo 'PNPM version:' && pnpm --version"
+    ],
+    "scripts": {
+      "install": "pnpm install",
+      "dev": "pnpm run dev",
+      "build": "pnpm run build",
+      "test": "pnpm run test",
+      "lint": "pnpm run lint",
+      "type-check": "pnpm run type-check"
+    }
+  }
+}
