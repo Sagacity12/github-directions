@@ -1,0 +1,50 @@
+devbox run install
+devbox  install
+pnpm init 
+devbox shell 
+pnpm add -D typescript 
+pnpm tsc --init
+pnpm add -D typescript @types/node tsx ts-node
+pnpm approve-builds
+pnpm add -D eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
+pnpm store prune
+rm -rf node_modules
+pnpm install
+pnpm add -D vitest 
+pnpm add -D eslint 
+pnpm add -D @typescript-eslint/eslint-plugin
+pnpm add -D @typescript-eslint/parser 
+pnpm add -D prettier 
+npm i --save-dev @types/node
+pnpm i --save-dev @types/node
+pnpm install 
+pnpm start 
+pnpm build 
+pnpm start 
+pnpm add -D vitest 
+npm i -D vitest
+pnpm add --save-dev @types/node @types/vitest
+pnpm install 
+pnpm start 
+devbox run build 
+devbox run lint 
+pnpm install 
+devbox install 
+devbox run lint  
+pnpm add -D eslint 
+pnpm install
+ls node_modules/.bin | grep eslint
+pnpm exec eslint "src/**/*.ts"
+pnpm install --include=dev --force
+pnpm exec eslint --version
+pnpm exec eslint "src/**/*.ts"
+pnpm add -D @eslint/js
+pnpm add -D vitest@latest
+pnpm exec eslint "src/**/*.ts"
+devbox install 
+pnpm install  
+pnpm exec vitest run
+devbox shell
+devbox run test
+devbox run lint 
+pnpm exec vitest run
