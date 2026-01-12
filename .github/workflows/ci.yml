@@ -1,0 +1,100 @@
+name: CI/CD Pipeline
+
+# Trigger on push or pull request to the main branch 
+on: 
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+# Cancel previous runs if a new one is triggered of the same workflow
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+#Environment variables
+env: 
+  NODE_VERSION: '20.x'
+
+jobs:
+  # Job 1: Lint and Type Check
+  lint: 
+    name: Lint and Type Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code 
+        uses: actions/checkout@v4
+
+      - name: Install Devbox 
+        uses: jetify-com/devbox-install-action@v0.12.0
+        with: 
+          enable-cache: true 
+
+      - name: Install dependencies 
+        run: devbox install 
+
+      - name: Run ESLint 
+        run: devbox run lint 
+
+      - name: Run TSC Type Check
+        run: devbox run type-check
+
+  # Job 2: Build
+  build:
+    name: Build Project
+    runs-on: ubuntu-latest
+    needs: lint
+
+    steps: 
+      - name: Checkout code 
+        uses: actions/checkout@v4
+
+      - name: Install Devbox 
+        uses: jetify-com/devbox-install-action@v0.12.0
+        with: 
+          enable-cache: true 
+
+      - name: Install dependencies 
+        run: devbox install 
+
+      - name: Build TypeScript Project
+        run: devbox run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 7
+
+# Job 3 : Deploy (Only on main branch)
+  deploy:
+    name: Deploy for Production
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout code 
+        uses: actions/checkout@v4
+
+      - name: Install Devbox 
+        uses: jetify-com/devbox-install-action@v0.12.0
+        with: 
+          enable-cache: true 
+
+      - name: Install dependencies 
+        run: devbox install 
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Deploy to Production Server
+        run: |
+          echo "Deploying to production server..."
+          # Add your deployment commands here
+          echo "Deployment completed."
